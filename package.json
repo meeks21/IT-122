@@ -1,0 +1,19 @@
+{
+  "name": "it-122",
+  "version": "1.0.0",
+  "description": "directory for IT-122 assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meeks21/ITC-230.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meeks21/ITC-230/issues"
+  },
+  "homepage": "https://github.com/meeks21/ITC-230#readme"
+}
