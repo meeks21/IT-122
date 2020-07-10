@@ -5,12 +5,40 @@ let guitarArray = guitars.getAll();//cretates a variable that calls the function
 
 
 /******************* Adds express and body-parser***************************/
+'use strict'
 const express = require("express");
 const bodyParser = require("body-parser")
+let exphbs  = require('express-handlebars');
 
+const app = express();
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
+app.set('port', process.env.PORT || 3000);
+app.use(express.static(__dirname + '/public')); // set location for static files
+app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 
+/********************* Assignment 2 *********************************************************************************** */
 
+// send static file as response
+app.get('/', (req, res) => {
+  res.send('Home page\n' + 'Guitar\'s in stock: ' + guitarArray.length);
+   });
+
+app.get('/about', (req, res) => {
+  res.send('About page\n My name Kemar and this is my third quarter at Seattle Central \n I\'m a little nervous about this class');
+   });
+
+   app.use( (req,res) => {
+    res.type('text/plain'); 
+    res.status(404);
+    res.send('404 - Not found');
+   });
+
+   
+   app.listen(app.get('port'), () => {
+    console.log('Express started'); 
+   });
 /******************* Assignment 1 code ********************************************************************************/
 
 // http.createServer(
@@ -35,4 +63,4 @@ const bodyParser = require("body-parser")
 //     }
 //  ).listen(process.env.PORT || 3000);
 
-/********************* Assignment 2 *********************************************************************************** */
+// /
