@@ -4,7 +4,7 @@ const guitars = require('./data');//imports the data.js page as a module
 let guitarArray = guitars.getAll();//cretates a variable that calls the function from from the data.js page. Which will return the contents of the array.
 
 
-/******************* Adds express and body-parser***************************/
+/******************* Adds express, body-parser, and handlebars***************************/
 'use strict'
 const express = require("express");
 const bodyParser = require("body-parser")
@@ -20,19 +20,24 @@ app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 
 /********************* Assignment 2 *********************************************************************************** */
 
-// send static file as response
+//Route to home page
 app.get('/', (req, res) => {
-  res.send('Home page\n' + 'Guitar\'s in stock: ' + guitarArray.length);
-   });
 
-app.get('/about', (req, res) => {
-  res.send('About page\n My name Kemar and this is my third quarter at Seattle Central \n I\'m a little nervous about this class');
-   });
+  res.render('home');
 
-   app.use( (req,res) => {
-    res.type('text/plain'); 
-    res.status(404);
-    res.send('404 - Not found');
+});
+
+
+app.get('/detail?item=[VALUE]', (req, res) => {
+
+  res.render('details');
+
+});
+
+app.use( (req,res) => {
+  res.type('text/plain'); 
+  res.status(404);
+  res.send('404 - Not found');
    });
 
    
