@@ -11,6 +11,7 @@ const bodyParser = require("body-parser")
 let exphbs  = require('express-handlebars');
 
 const app = express();
+
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
@@ -22,16 +23,15 @@ app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 
 //Route to home page
 app.get('/', (req, res) => {
-
-  res.render('home');
-
+  let result = guitars.get(req.query.body);
+  res.render('home', {body: req.query.body, guitars: result });
+  // res.render('home');
 });
 
 
 app.get('/detail?item=[VALUE]', (req, res) => {
-
   res.render('details');
-
+  console.log(req.query);
 });
 
 app.use( (req,res) => {
@@ -44,6 +44,9 @@ app.use( (req,res) => {
    app.listen(app.get('port'), () => {
     console.log('Express started'); 
    });
+
+
+
 /******************* Assignment 1 code ********************************************************************************/
 
 // http.createServer(

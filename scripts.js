@@ -2,5 +2,5 @@ const guitars = require('./data');
 
 let guitarArray = guitars.getAll();
 
-let textGtr = document.querySelector('.gtr');
-textGtr.innerHTML =`${guitarArray}`;
+document.querySelector('.gtr').innerHTML = guitarArray;
+console.log(guitarArray);
