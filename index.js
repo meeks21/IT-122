@@ -3,7 +3,6 @@ const guitars = require('./data');//imports the data.js page as a module
 
 let guitarArray = guitars.getAll();//cretates a variable that calls the function from from the data.js page. Which will return the contents of the array.
 
-
 /******************* Adds express, body-parser, and handlebars***************************/
 'use strict'
 const express = require("express");
@@ -23,26 +22,24 @@ app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 
 //Route to home page
 app.get('/', (req, res) => {
-  let result = guitars.get(req.query.body);
-  res.render('home', {body: req.query.body, guitars: result });
+  res.render('home', {guitars: guitarArray});
   // res.render('home');
 });
 
-
-app.get('/detail', (req, res) => {
-  res.render('details');
+app.get('/details', (req, res) => {
+  res.render('details', {model: req.query.model});
 });
 
 app.use( (req,res) => {
   res.type('text/plain'); 
   res.status(404);
   res.send('g');
-   });
+});
 
    
-   app.listen(app.get('port'), () => {
+app.listen(app.get('port'), () => {
     console.log('Express started'); 
-   });
+});
 
 
 

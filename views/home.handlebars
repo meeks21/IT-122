@@ -8,10 +8,14 @@
 </head>
 <body>
     <h1>Guitars Ltd. est 1988</h1>
-    <p class="gtr"></p>
 
-    {{{body}}}
+ 
 
-{{!-- <script src="../scripts.js"></script> --}}
+
+{{#each guitars}}
+ <li>{{model}}</li>
+{{/each}}
+
+
 </body>
 </html>
