@@ -37,7 +37,7 @@ app.get('/detail?item=[VALUE]', (req, res) => {
 app.use( (req,res) => {
   res.type('text/plain'); 
   res.status(404);
-  res.send('404 - Not found');
+  res.send('g');
    });
 
    
