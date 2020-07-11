@@ -4,7 +4,7 @@
 
 
 const guitars = [
-    {brand : 'Fender', model : 'stratocaster', color : 'sunburst', year : 1965 },
+    {brand : 'Fender', model : 'Stratocaster', color : 'sunburst', year : 1965 },
     {brand : 'Fender', model : 'Jaguar', color : 'Navy Blue Metallic', year : 1976 },
     {brand : 'Fender', model : 'Telecaster', color : 'Vintage Natural', year : 1972 },
     {brand : 'Gibson', model : 'Les Paul Custom', color : 'Cherry Sunburst', year : 2009 },

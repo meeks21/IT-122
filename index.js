@@ -33,7 +33,7 @@ app.get('/details', (req, res) => {
 app.use( (req,res) => {
   res.type('text/plain'); 
   res.status(404);
-  res.send('g');
+  res.send('404 - Not found');
 });
 
    
