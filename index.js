@@ -12,7 +12,7 @@ let exphbs  = require('express-handlebars');
 
 const app = express();
 
-app.engine('handlebars', exphbs());
+app.engine('handlebars', exphbs({defaultLayout: false}));
 app.set('view engine', 'handlebars');
 
 app.set('port', process.env.PORT || 3000);
@@ -29,9 +29,8 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/detail?item=[VALUE]', (req, res) => {
+app.get('/detail', (req, res) => {
   res.render('details');
-  console.log(req.query);
 });
 
 app.use( (req,res) => {
