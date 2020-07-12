@@ -25,9 +25,10 @@ app.get('/', (req, res) => {
   res.render('home', {guitars: guitarArray});
   // res.render('home');
 });
-
+//route to the detials page 
 app.get('/details', (req, res) => {
-  res.render('details', {model: req.query.model});
+  res.render('details', {model: req.query.model, title: 'Details Page'});
+
 });
 
 app.use( (req,res) => {
