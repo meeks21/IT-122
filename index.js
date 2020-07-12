@@ -23,8 +23,9 @@ app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 //Route to home page
 app.get('/', (req, res) => {
   res.render('home', {guitars: guitarArray});
-  // res.render('home');
+                    //passes data through to handlebars
 });
+
 //route to the detials page 
 app.get('/details', (req, res) => {
   res.render('details', {model: req.query.model, title: 'Details Page'});
