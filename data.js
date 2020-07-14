@@ -16,3 +16,8 @@ const guitars = [
 exports.getAll = ()=> {
     return guitars;
 }
+
+exports.getGuitar = (guitarSearch) => {
+    let guitar = guitars.find(guitars => guitars.model === guitarSearch)
+    return guitar;
+}

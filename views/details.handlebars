@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title> {{title}} </title>
-</head>
+
 <body>
    <a href="http://localhost:3000/">home</a>
-    {{model}}
+
+  {{#if guitar}} 
+     <li>brand: {{guitar.brand}} </li>
+     <li>color: {{guitar.color}} </li>
+  {{else}} 
+    Guitar not found
+  {{/if}}
 
 </body>
-</html>

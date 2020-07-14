@@ -11,7 +11,7 @@ let exphbs  = require('express-handlebars');
 
 const app = express();
 
-app.engine('handlebars', exphbs({defaultLayout: false}));
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.set('port', process.env.PORT || 3000);
@@ -26,9 +26,16 @@ app.get('/', (req, res) => {
                     //passes data through to handlebars
 });
 
+app.get('/about', (req, res) => {
+  res.type('text/plain');
+  res.send('About page\n My name Kemar and this is my third quarter at Seattle Central \n I\'m a little nervous about this class');
+                    //passes data through to handlebars
+});
+
 //route to the detials page 
 app.get('/details', (req, res) => {
-  res.render('details', {model: req.query.model, title: 'Details Page'});
+  let result = guitars.getGuitar(req.query.model);
+  res.render('details', {model: req.query.model, guitar: result});
 
 });
 
@@ -57,10 +64,10 @@ app.listen(app.get('port'), () => {
 //             res.writeHead(200, {'Content-Type': 'text/plain'});
 //             res.end('Home page\n' + 'Guitar\'s in stock: ' + guitarArray.length);//this grabs the the length of the array
 //             break;
-//           case '/about':
-//             res.writeHead(200, {'Content-Type': 'text/plain'});
-//             res.end('About page\n My name Kemar and this is my third quarter at Seattle Central \n I\'m a little nervous about this class');
-//             break;
+          // case '/about':
+          //   res.writeHead(200, {'Content-Type': 'text/plain'});
+          //   res.end('About page\n My name Kemar and this is my third quarter at Seattle Central \n I\'m a little nervous about this class');
+          //   break;
 //           default:
 //             res.writeHead(404, {'Content-Type': 'text/plain'});
 //             res.end('Not found');
