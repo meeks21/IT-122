@@ -1,4 +1,3 @@
-const http = require("http"); //imports the node built-in module http
 const guitars = require('./data');//imports the data.js page as a module
 
 let guitarArray = guitars.getAll();//cretates a variable that calls the function from from the data.js page. Which will return the contents of the array.
@@ -8,6 +7,8 @@ let guitarArray = guitars.getAll();//cretates a variable that calls the function
 const express = require("express");
 const bodyParser = require("body-parser")
 let exphbs  = require('express-handlebars');
+
+
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.get('/', (req, res) => {
 
 app.get('/about', (req, res) => {
   res.type('text/plain');
-  res.send('About page\n My name Kemar and this is my third quarter at Seattle Central \n I\'m a little nervous about this class');
+  res.send('About page\n My name Kemar and this is my third quarter at Seattle Central');
                     //passes data through to handlebars
 });
 
