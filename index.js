@@ -1,9 +1,11 @@
+'use strict'
+
 const guitars = require('./data');//imports the data.js page as a module
 
 let guitarArray = guitars.getAll();//cretates a variable that calls the function from from the data.js page. Which will return the contents of the array.
 
 /******************* Adds express, body-parser, and handlebars***************************/
-'use strict'
+
 const express = require("express");
 const bodyParser = require("body-parser")
 let exphbs  = require('express-handlebars');

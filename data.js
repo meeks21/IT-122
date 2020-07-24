@@ -40,10 +40,12 @@ exports.addGuitar = (newGuitar) => {
 
 exports.delGuitar = (model) => {
         let gtrPostion = guitars.findIndex(guitars => guitars.model === model);
+        
         if(gtrPostion > -1) {
             guitars.splice(gtrPostion, 1);
             return {"deleted": true};
         }
+
         return {"deleted": false, "message": "item not in the array"}
       
 }
