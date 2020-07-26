@@ -1,8 +1,14 @@
 'use strict'
 
-const guitars = require('./data');//imports the data.js page as a module
+//imports the data.js page as a module
+// const guitars = require('./data'); 
 
-let guitarArray = guitars.getAll();//cretates a variable that calls the function from from the data.js page. Which will return the contents of the array.
+
+const Guitar = require('./models/gtrDB')
+
+
+//cretates a variable that calls the function from from the data.js page. Which will return the contents of the array.
+// let guitarArray = guitars.getAll();
 
 /******************* Adds express, body-parser, and handlebars***************************/
 
@@ -21,26 +27,52 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public')); // set location for static files
 app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 
-/********************* Assignment 2 *********************************************************************************** */
 
-//Route to home page
-app.get('/', (req, res) => {
-  res.render('home', {guitars: guitarArray});
-                    //passes data through to handlebars
+
+/*********************************Assignment 4 updated routes to mongoDB*********************************************** */
+
+app.get('/', (req, res, next) => {
+  return Guitar.find({}).lean()
+    .then((guitars) => {
+
+      res.render('home', {guitars})
+    })              //passes data through to handlebars
+    .catch(err => next(err));
+   
 });
 
-app.get('/about', (req, res) => {
-  res.type('text/plain');
-  res.send('About page\n My name Kemar and this is my third quarter at Seattle Central');
-                    //passes data through to handlebars
-});
 
-//route to the detials page 
 app.get('/details', (req, res) => {
-  let result = guitars.getGuitar(req.query.model);
-  res.render('details', {model: req.query.model, guitar: result});
+  return Guitar.findOne({model:req.query.model}).lean()
+  .then((guitars) => {
 
+    
+    res.render('details', {guitars});
+  })
+  .catch(err => next(err));
 });
+
+
+app.get('/delete', (req, res) => {
+  Guitar.findOneAndDelete({model: req.query.model}, (err, guitars) => {
+    if (err) {
+      console.log(err);
+    } else if (!guitars) {
+      console.log('Guitar does not exist')
+      res.send('Guitar does not exist')
+    } else{
+      console.log(`Removed "${guitars.model}"`)
+      res.send(`Removed "${guitars.model}"`)
+    }
+  });
+});
+
+
+
+
+
+
+
 
 app.use( (req,res) => {
   res.type('text/plain'); 
@@ -52,6 +84,32 @@ app.use( (req,res) => {
 app.listen(app.get('port'), () => {
     console.log('Express started'); 
 });
+
+
+
+
+
+/********************* Assignment 2 *********************************************************************************** */
+
+// Route to home page
+// app.get('/', (req, res) => {
+//   res.render('home', {guitars: guitarArray});
+//                     //passes data through to handlebars
+// });
+
+// app.get('/about', (req, res) => {
+//   res.type('text/plain');
+//   res.send('About page\n My name Kemar and this is my third quarter at Seattle Central');
+//                     //passes data through to handlebars
+// });
+
+// //route to the detials page 
+// app.get('/details', (req, res) => {
+//   let result = guitars.getGuitar(req.query.model);
+//   res.render('details', {model: req.query.model, guitar: result});
+
+// });
+
 
 
 
@@ -79,4 +137,4 @@ app.listen(app.get('port'), () => {
 //     }
 //  ).listen(process.env.PORT || 3000);
 
-// /
+// 

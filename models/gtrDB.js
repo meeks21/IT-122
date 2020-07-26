@@ -8,19 +8,19 @@ const credentials = require('../credentials');
 // const ip = process.env.ip || '127.0.0.1';
 // const connectionString = 'mongodb://' +ip+ '/<DB_NAME>';
 
-mongoose.connect(credentials.connectionString, { dbName: "projects", useNewUrlParser: true }); 
+mongoose.connect(credentials.connectionString, { dbName: "projects", useNewUrlParser: true, useUnifiedTopology: true }); 
 
 mongoose.connection.on('open', () => {
   console.log('Mongoose connected.');
 });
 
-// define Book model in JSON key/value pairs
+// Defining the model in JSON key/value pairs
 // values indicate the data type of each key
-const mySchema = mongoose.Schema({
+const guitarSchema = mongoose.Schema({
  brand: { type: String, required: true },
  model: String,
  color: String,
- Year: Number
+ year: Number
 }); 
 
-module.exports = mongoose.model('Guitar', mySchema);
+module.exports = mongoose.model('Guitar', guitarSchema);
