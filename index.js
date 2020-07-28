@@ -27,6 +27,12 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public')); // set location for static files
 app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 
+/***********************************API routes******************************************************** */
+
+
+
+
+
 
 
 /*********************************Assignment 4 updated routes to mongoDB*********************************************** */
@@ -34,7 +40,7 @@ app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 app.get('/', (req, res, next) => {
   return Guitar.find({}).lean()
     .then((guitars) => {
-
+     
       res.render('home', {guitars})
     })              //passes data through to handlebars
     .catch(err => next(err));
@@ -68,10 +74,11 @@ app.get('/delete', (req, res) => {
 });
 
 
-
-
-
-
+app.get('/about', (req, res) => {
+  res.type('text/plain');
+  res.send('About page\n My name Kemar and this is my third quarter at Seattle Central');
+                    //passes data through to handlebars
+});
 
 
 app.use( (req,res) => {
@@ -97,11 +104,6 @@ app.listen(app.get('port'), () => {
 //                     //passes data through to handlebars
 // });
 
-// app.get('/about', (req, res) => {
-//   res.type('text/plain');
-//   res.send('About page\n My name Kemar and this is my third quarter at Seattle Central');
-//                     //passes data through to handlebars
-// });
 
 // //route to the detials page 
 // app.get('/details', (req, res) => {
