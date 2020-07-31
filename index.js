@@ -26,11 +26,31 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public')); // set location for static files
 app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
+app.use('/api', require('cors')());
 
 /***********************************API routes******************************************************** */
 
 
 
+app.get('/api/guitars', (req, res) => {
+  return Guitar.find({}).lean()
+    .then((guitars) => {
+        // res.json sets appropriate status code and response header
+        res.json(guitars);
+    })
+    .catch(err => res.status(500).send('Error occurred: database error.'));
+});
+
+
+
+app.get('/api/details', (req, res) => {
+  return Guitar.findOne({model:req.query.model}).lean()
+  .then((guitars) => {
+
+    res.json(guitars);
+  })
+  .catch(err => next(err));
+});
 
 
 
@@ -40,7 +60,7 @@ app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 app.get('/', (req, res, next) => {
   return Guitar.find({}).lean()
     .then((guitars) => {
-     
+     console.log(guitars)
       res.render('home', {guitars})
     })              //passes data through to handlebars
     .catch(err => next(err));
