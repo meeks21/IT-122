@@ -53,6 +53,32 @@ app.get('/api/details', (req, res) => {
 });
 
 
+app.post('/api/added', (req, res) => {
+  const newGuitar = req.body
+  return Guitar.update({'model':newGuitar.model}, newGuitar, {upsert:true}, (err, result) => {
+    if (err) return next(err);
+    console.log(result);
+     res.json(result)
+  }); 
+});
+
+
+
+
+
+// app.post('/api/added', (req, res) => {
+//    Guitar.insert({
+//     brand: "Ibenez",
+//     model: "GRX",
+//     color: "Jewel Blue",
+//     year: 2020
+//   })
+//   .lean().then((guitars) =>{
+//     res.json(guitars);
+//   })
+//   .catch(err => next(err));
+// })
+
 
 
 /*********************************Assignment 4 updated routes to mongoDB*********************************************** */
