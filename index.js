@@ -28,7 +28,7 @@ app.use(express.static(__dirname + '/public')); // set location for static files
 app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 app.use('/api', require('cors')());
 
-/***********************************API routes******************************************************** */
+/***********************************Four API routes******************************************************** */
 
 
 
@@ -63,21 +63,23 @@ app.post('/api/added', (req, res) => {
 });
 
 
+app.delete('/api/delete', (req, res) => {
+  if(!req.query.model) {
+    return res.status(400).send("guitar not found")
+  }
+  Guitar.findOneAndRemove({model: req.query.model}).then(guitars => {
+    res.json(guitars)
+  })
+  .catch(err => {
+    res.status(500).json(err)
+  })
+})
 
 
 
-// app.post('/api/added', (req, res) => {
-//    Guitar.insert({
-//     brand: "Ibenez",
-//     model: "GRX",
-//     color: "Jewel Blue",
-//     year: 2020
-//   })
-//   .lean().then((guitars) =>{
-//     res.json(guitars);
-//   })
-//   .catch(err => next(err));
-// })
+
+
+
 
 
 
@@ -185,4 +187,3 @@ app.listen(app.get('port'), () => {
 //     }
 //  ).listen(process.env.PORT || 3000);
 
-// 
