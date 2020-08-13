@@ -14,7 +14,7 @@
     // define your sub components here
     const ItemList = (props) => {
       const bullets = props.items.map((item) => {
-        return <li key={item._id}>{item.model}</li>
+        return <li onClick={props.handleClick} key={item._id}>{item.model}</li>
          
       });
       return <ul>{bullets}</ul>
@@ -47,13 +47,18 @@
       selectItem(event) {
         // event.target is the HTML item clicked
         console.log(event.target.innerText);
+        const found = this.state.items.find((item) => {
+          return item.model === event.target.innerText;
+        });
+        console.log(found)
+        this.setState({currentItem: found})
       }
 
       render() {
         // render app UI elements
         return (
           <div>
-          <ItemList items={this.state.items}/>
+          <ItemList items={this.state.items} handleClick={this.selectItem}/>
           <ItemDetails item={this.state.currentItem}/>
           <h2>Components go here</h2>
           </div>
