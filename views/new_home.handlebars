@@ -13,11 +13,22 @@
 <script type="text/babel">
     // define your sub components here
     const ItemList = (props) => {
-      return props.items.map((item) => {
-        return <li>{item.model}</li>
+      const bullets = props.items.map((item) => {
+        return <li key={item._id}>{item.model}</li>
          
       });
-    }    
+      return <ul>{bullets}</ul>
+    }   
+
+   const ItemDetails = (props) => {
+     return <div>
+       <h3>Item detials for {props.item.model}</h3>
+       <li>Brand: {props.item.brand}</li>
+       <li>Color: {props.item.color}</li>
+       <li>Year: {props.item.year}</li>
+
+       </div>
+   }
 
     class App extends React.Component{
       constructor(props){
@@ -42,7 +53,8 @@
         // render app UI elements
         return (
           <div>
-          <ItemList items={this.state.items} />
+          <ItemList items={this.state.items}/>
+          <ItemDetails item={this.state.currentItem}/>
           <h2>Components go here</h2>
           </div>
           );
