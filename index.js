@@ -7,15 +7,18 @@
 const Guitar = require('./models/gtrDB')
 
 
-//cretates a variable that calls the function from from the data.js page. Which will return the contents of the array.
+//creates a variable that calls the function from from the data.js page. Which will return the contents of the array.
 // let guitarArray = guitars.getAll();
 
-/******************* Adds express, body-parser, and handlebars***************************/
+/******************* Adds express, body-parser, and handlebars**************************************************/
 
 const express = require("express");
 const bodyParser = require("body-parser")
 let exphbs  = require('express-handlebars');
 
+
+// const React = require('react');
+// const ReactDOM = require('react-dom')
 
 
 const app = express();
@@ -28,9 +31,22 @@ app.use(express.static(__dirname + '/public')); // set location for static files
 app.use(bodyParser.urlencoded({extended: true})); // parse form submissions
 app.use('/api', require('cors')());
 
-/***********************************Four API routes******************************************************** */
 
 
+/*********************************************React************************************************************* */
+
+
+app.get('/new_home', (req, res, next) => {
+  return Guitar.find({}).lean()
+    .then((guitars) => {
+    //  console.log(guitars)
+    res.render('new_home', {guitars: JSON.stringify(guitars)});
+    })              //passes data through to handlebars
+    .catch(err => next(err));
+   
+});
+
+/***********************************Four API routes**************************************************************/
 
 app.get('/api/guitars', (req, res) => {
   return Guitar.find({}).lean()
@@ -40,7 +56,6 @@ app.get('/api/guitars', (req, res) => {
     })
     .catch(err => res.status(500).send('Error occurred: database error.'));
 });
-
 
 
 app.get('/api/details', (req, res) => {
@@ -72,18 +87,11 @@ app.delete('/api/delete', (req, res) => {
   })
   .catch(err => {
     res.status(500).json(err)
-  })
-})
+  });
+});
 
 
-
-
-
-
-
-
-
-/*********************************Assignment 4 updated routes to mongoDB*********************************************** */
+/*********************************Assignment 4 updated routes to mongoDB************************************************/
 
 app.get('/', (req, res, next) => {
   return Guitar.find({}).lean()
@@ -139,9 +147,6 @@ app.use( (req,res) => {
 app.listen(app.get('port'), () => {
     console.log('Express started'); 
 });
-
-
-
 
 
 /********************* Assignment 2 *********************************************************************************** */

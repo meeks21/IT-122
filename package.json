@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint **/*.js",
-    "tests": "mocha -r test/testhelper.js -R spec test/test.js"
+    "tests": "mocha -r test/testhelper.js -R spec test/test.js",
+    "start-watch": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -23,12 +24,15 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-handlebars": "^5.0.0",
-    "mongoose": "^5.9.25"
+    "mongoose": "^5.9.25",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^7.4.0",
     "mocha": "^8.0.1",
+    "nodemon": "^2.0.4",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0"
   }
