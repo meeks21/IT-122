@@ -19,7 +19,7 @@
       });
       return <ul>{bullets}</ul>
     }   
-
+    // component that is responsible for displaying the guitar details
    const ItemDetails = (props) => {
         return <div>
 
@@ -30,6 +30,7 @@
             Year <input type="text" value={props.item.year || ""}/>
           </form>
           <button onClick={props.handleClear}>Clear</button>
+          <button onClick={props.handleDelete}>Delete</button>
        </div>
    }
 
@@ -45,11 +46,29 @@
           // bind application state to click handler
           this.selectItem = this.selectItem.bind(this);
           this.handleClear = this.handleClear.bind(this);
+          this.handleDelete = this.handleDelete.bind(this);
        }
 
       handleClear () {
         this.setState({currentItem: {}})
       }
+      
+      handleDelete () {
+        console.log('delete me')
+        fetch(`/api/v2/delete/${this.state.currentItem._id}`)
+          .then((response) => {
+            return response.json();
+          })
+          .then((result) => {
+            console.log(result) 
+
+            this.setState(items)
+            // on success, remove deleted item from this.state.items
+          })
+            .catch(err => console.log(err))
+      }
+
+
       // handle list item clicked
       selectItem(event) {
         // event.target is the HTML item clicked
@@ -65,8 +84,8 @@
         // render app UI elements
         return (
           <div>
-          <ItemList items={this.state.items} handleClick={this.selectItem}/>
-          <ItemDetails item={this.state.currentItem} handleClear={this.handleClear}/>
+          <ItemList items={this.state.items} handleClick={this.selectItem} />
+          <ItemDetails item={this.state.currentItem} handleClear={this.handleClear} handleDelete={this.handleDelete}/>
           <h2>Components go here</h2>
           </div>
           );

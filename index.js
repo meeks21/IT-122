@@ -90,6 +90,14 @@ app.delete('/api/delete', (req, res) => {
   });
 });
 
+app.get('/api/v2/delete/:id', (req, res, next) => {
+  Guitar.deleteOne({"_id":req.params.id }, (err, result) => {
+    if (err) return next(err);
+    console.log(result)
+    res.json({"deleted": result});
+  });
+});
+
 
 /*********************************Assignment 4 updated routes to mongoDB************************************************/
 
