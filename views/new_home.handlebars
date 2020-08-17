@@ -21,12 +21,15 @@
     }   
 
    const ItemDetails = (props) => {
-     return <div>
-       <h3>Item detials for {props.item.model}</h3>
-       <li>Brand: {props.item.brand}</li>
-       <li>Color: {props.item.color}</li>
-       <li>Year: {props.item.year}</li>
+        return <div>
 
+          <form>
+            Model <input type="text" value={props.item.model || ""}/><br/>
+            Brand <input type="text" value={props.item.brand || ""}/><br/>
+            Color <input type="text" value={props.item.color || ""}/><br/>
+            Year <input type="text" value={props.item.year || ""}/>
+          </form>
+          <button onClick={props.handleClear}>Clear</button>
        </div>
    }
 
@@ -41,8 +44,12 @@
 
           // bind application state to click handler
           this.selectItem = this.selectItem.bind(this);
+          this.handleClear = this.handleClear.bind(this);
        }
 
+      handleClear () {
+        this.setState({currentItem: {}})
+      }
       // handle list item clicked
       selectItem(event) {
         // event.target is the HTML item clicked
@@ -59,7 +66,7 @@
         return (
           <div>
           <ItemList items={this.state.items} handleClick={this.selectItem}/>
-          <ItemDetails item={this.state.currentItem}/>
+          <ItemDetails item={this.state.currentItem} handleClear={this.handleClear}/>
           <h2>Components go here</h2>
           </div>
           );
