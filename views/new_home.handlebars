@@ -61,8 +61,13 @@
           })
           .then((result) => {
             console.log(result) 
+            let arrPostion = this.state.items.findIndex(item => this.state.currentItem._id === item._id );
+            let newArray = this.state.items
+            if(arrPostion > -1){
+              newArray.splice(arrPostion, 1)
+            }
 
-            this.setState(items)
+            this.setState({items: newArray})
             // on success, remove deleted item from this.state.items
           })
             .catch(err => console.log(err))
@@ -84,7 +89,7 @@
         // render app UI elements
         return (
           <div>
-          <ItemList items={this.state.items} handleClick={this.selectItem} />
+          <ItemList items={this.state.items} handleClick={this.selectItem}/>
           <ItemDetails item={this.state.currentItem} handleClear={this.handleClear} handleDelete={this.handleDelete}/>
           <h2>Components go here</h2>
           </div>
