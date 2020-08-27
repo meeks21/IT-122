@@ -5,6 +5,8 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link href="../public/styles.css" type="text/css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -68,6 +70,7 @@
             }
 
             this.setState({items: newArray})
+            this.setState({currentItem: {}})
             // on success, remove deleted item from this.state.items
           })
             .catch(err => console.log(err))
@@ -88,7 +91,7 @@
       render() {
         // render app UI elements
         return (
-          <div>
+          <div className="wrapper">
           <ItemList items={this.state.items} handleClick={this.selectItem}/>
           <ItemDetails item={this.state.currentItem} handleClear={this.handleClear} handleDelete={this.handleDelete}/>
           <h2>Components go here</h2>
